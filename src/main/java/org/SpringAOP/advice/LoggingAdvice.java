@@ -1,7 +1,7 @@
 package org.SpringAOP.advice;
 
+import org.SpringAOP.model.Person;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
@@ -15,8 +15,13 @@ public class LoggingAdvice {
 		System.out.println("Logged method, using execution: "+joinPoint.getSignature().getName());
 	}
 	
-	@Before("within (org.SpringAOP..*(..))")
+	@Before("within (org.SpringAOP..*)")
 	public void loggingWithin(JoinPoint joinPoint){
 		System.out.println("Logged method, using Within: "+joinPoint.getSignature().getName());
+	}
+	
+	@Before("execution(* org.SpringAOP.*.*.*(..)) && args(person)")
+	public void loggingArgs(JoinPoint joinPoint, Person person){
+		System.out.println("Logged method, using Args: "+joinPoint.getSignature().getName());
 	}
 }
