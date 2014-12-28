@@ -13,7 +13,8 @@ public class PersonService {
 		show(5);
 		personDao.create(person);
 	}
-	public void show(int a){
-		System.out.println("We are inside Service");
+	public int show(int a){
+		System.out.println("Show Method");
+		return a+4;
 	}
 }
