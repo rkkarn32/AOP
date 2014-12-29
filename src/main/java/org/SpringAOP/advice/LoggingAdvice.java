@@ -2,10 +2,13 @@ package org.SpringAOP.advice;
 
 import org.SpringAOP.model.Person;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StopWatch;
 
 @Component
 @Aspect
@@ -26,8 +29,18 @@ public class LoggingAdvice {
 //		System.out.println("Logged method, using Args: "+joinPoint.getSignature().getName());
 //	}
 	
-	@AfterReturning(pointcut ="execution(* org.SpringAOP.service.PersonService.show(..))", returning="retValue")
-	public void afterReturningAdvice(JoinPoint joinPoint, Object retValue){
-		System.out.println("Method: "+joinPoint.getSignature().getName()+", Return Value: "+retValue);
+//	@AfterReturning(pointcut ="execution(* org.SpringAOP.*.*.*(..))", returning="retValue")
+//	public void afterReturningAdvice(JoinPoint joinPoint, Object retValue){
+//		StopWatch st = new StopWatch();
+//		System.out.println("Method: "+joinPoint.getSignature().getName()+", Return Value: "+retValue);
+//	}
+	
+	@Around("execution(* org.SpringAOP.*.*.show(..))")
+	public Object aroundAdvice(ProceedingJoinPoint call) throws Throwable{
+		Object []arg = call.getArgs();
+		System.out.println("Argument is : "+arg[0]);
+		Object ret = call.proceed();
+		return ret;
 	}
+	
 }

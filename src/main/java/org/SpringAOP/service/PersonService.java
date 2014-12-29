@@ -14,7 +14,7 @@ public class PersonService {
 		personDao.create(person);
 	}
 	public int show(int a){
-		System.out.println("Show Method");
+		System.out.println("Show Method: "+a);
 		return a+4;
 	}
 }
