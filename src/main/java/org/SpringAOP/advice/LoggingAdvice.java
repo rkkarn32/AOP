@@ -38,6 +38,7 @@ public class LoggingAdvice {
 	@Around("execution(* org.SpringAOP.*.*.show(..))")
 	public Object aroundAdvice(ProceedingJoinPoint call) throws Throwable{
 		Object []arg = call.getArgs();
+		System.out.println("Target Class is: "+call.getTarget().getClass().getSimpleName());
 		System.out.println("Argument is : "+arg[0]);
 		Object ret = call.proceed();
 		return ret;
